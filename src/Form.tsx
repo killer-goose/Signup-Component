@@ -14,7 +14,6 @@ export default function Form() {
 
   /* An input field returns an empty string even when no input is provided. The required_error property in Zod triggers only if the field is not registered, not when it’s an empty string. */
 
-  // [IMPROVEMENT] Utilize string methods from zod
   const formSchema = z.object({
     firstname: z.string().trim().min(1, 'First name is required'),
     lastname: z.string().trim().min(1, 'Last name is required'),
