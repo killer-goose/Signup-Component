@@ -13,12 +13,15 @@ export default function Form() {
   } */
 
   /* An input field returns an empty string even when no input is provided. The required_error property in Zod triggers only if the field is not registered, not when it’s an empty string. */
+
+  // [IMPROVEMENT] Utilize string methods from zod
   const formSchema = z.object({
-    firstname: z.string().min(1, 'First name is required'),
-    lastname: z.string().min(1, 'Last name is required'),
-    email: z.string().min(1, 'Email is required').email(),
+    firstname: z.string().trim().min(1, 'First name is required'),
+    lastname: z.string().trim().min(1, 'Last name is required'),
+    email: z.string().trim().toLowerCase().min(1, 'Email is required').email(),
     password: z
       .string()
+      .trim()
       .min(1, 'Password is required')
       .min(8, 'Password must be min 8 chars long'),
     checkbox: z.boolean(),
@@ -48,6 +51,7 @@ export default function Form() {
   //SumbitHandler is an imported 'type'
   const onSubmitHandler: SubmitHandler<TForm> = (data) => {
     console.log(data)
+    // [IMPROVEMENT] use react-toast-notifications instead
     alert('Form submitted successfully')
     reset() // reset the form
   }
